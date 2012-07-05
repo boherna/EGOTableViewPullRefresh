@@ -27,15 +27,16 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-typedef enum{
+typedef enum
+{
 	EGOOPullRefreshPulling = 0,
 	EGOOPullRefreshNormal,
-	EGOOPullRefreshLoading,	
+	EGOOPullRefreshLoading,
 } EGOPullRefreshState;
 
 @protocol EGORefreshTableHeaderDelegate;
-@interface EGORefreshTableHeaderView : UIView {
-	
+@interface EGORefreshTableHeaderView : UIView
+{	
 	id _delegate;
 	EGOPullRefreshState _state;
 
@@ -43,23 +44,24 @@ typedef enum{
 	UILabel *_statusLabel;
 	CALayer *_arrowImage;
 	UIActivityIndicatorView *_activityView;
-	
-
+	CGFloat actualHeight;
 }
 
-@property(nonatomic,assign) id <EGORefreshTableHeaderDelegate> delegate;
+@property(nonatomic, assign) id <EGORefreshTableHeaderDelegate> delegate;
+@property(nonatomic, readonly) CGFloat actualHeight;
 
-- (id)initWithFrame:(CGRect)frame arrowImageName:(NSString *)arrow textColor:(UIColor *)textColor;
-
+- (id)initWithFrame:(CGRect)frame arrowImageName:(NSString *)arrowImageName backgroundColor:(UIColor *)backgroundColor
+		  textColor:(UIColor *)textColor textShadowColor:(UIColor *)textShadowColor activityIndicatorStyle:(UIActivityIndicatorViewStyle)activityIndicatorStyle;
 - (void)refreshLastUpdatedDate;
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
+- (void)setState:(EGOPullRefreshState)aState;
 
 @end
 @protocol EGORefreshTableHeaderDelegate
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view;
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view;
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView *)view;
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView *)view;
 @optional
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view;
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView *)view;
 @end

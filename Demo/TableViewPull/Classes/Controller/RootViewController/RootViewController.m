@@ -123,8 +123,8 @@
 #pragma mark -
 #pragma mark EGORefreshTableHeaderDelegate Methods
 
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
-	
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
+{	
 	[self reloadTableViewDataSource];
 	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
 	
